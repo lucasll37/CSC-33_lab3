@@ -11,7 +11,7 @@ int main() {
     }
     std::cout << std::endl;
 
-    mergesort_recursive(vec1);
+    mergesort(vec1);
 
     std::cout << "Vetor ordenado 1: ";
     for (const auto &val : vec1) {
@@ -27,7 +27,7 @@ int main() {
     }
     std::cout << std::endl;
 
-    mergesort_recursive(vec2);
+    mergesort(vec2);
 
     std::cout << "Vetor ordenado 2: ";
     for (const auto &val : vec2) {
@@ -43,7 +43,7 @@ int main() {
     }
     std::cout << std::endl;
 
-    mergesort_recursive(vec3);
+    mergesort(vec3);
 
     std::cout << "Vetor ordenado 3: ";
     for (const auto &val : vec3) {

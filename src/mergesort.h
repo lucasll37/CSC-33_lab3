@@ -1,17 +1,24 @@
 #ifndef MERGESORT_H
 #define MERGESORT_H
 
+#include <vector>
+#include "mergesort.h"
+#include <pthread.h>
+#include <semaphore.h>
+#include <vector>
 
-#include <iostream>     // std::cout
-#include <vector>       // std::vector
-#include <queue>
-#include <math.h>
+typedef struct {
+    std::vector<int>& v;
+    std::vector<int>& aux;
+    int start;
+    int middle;
+    int end;
+} arguments;
 
+void _merge(arguments* args);
 
-void _merge(std::vector<int> &v, std::vector<int> &aux, int start, int middle, int end);
+void* _mergesort(void* arg);
 
-void _mergesort_recursive(std::vector<int> &v, std::vector<int> &aux, int start, int end);
-
-void mergesort_recursive(std::vector<int> &v);
+void mergesort(std::vector<int>& v);
 
 #endif // MERGESORT_H
