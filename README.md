@@ -1,4 +1,4 @@
-# Projeto de Sistemas Operacionais: Implementação de Merge Sort com Threads
+# [CSC-33] Laboratório 3: Implementação de MergeSort com Threads
 
 ## Descrição do Projeto
 
