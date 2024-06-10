@@ -4,8 +4,7 @@
 #include <vector>
 #include "mergesort.h"
 #include <pthread.h>
-#include <semaphore.h>
-#include <vector>
+
 
 typedef struct {
     std::vector<int>& v;

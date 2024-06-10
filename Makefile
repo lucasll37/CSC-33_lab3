@@ -8,7 +8,7 @@ SRC_DIR = ./src
 SRC_EXE = ./build
 
 # Lista de arquivos de origem
-SOURCE = $(SRC_DIR)/main.cpp $(SRC_DIR)/mergesort.cpp $(SRC_DIR)/mergesort.h
+SOURCE = $(SRC_DIR)/main.cpp $(SRC_DIR)/mergesort.cpp
 
 # Nome do executável
 EXECUTABLE = $(SRC_EXE)/main.exe
@@ -17,7 +17,7 @@ EXECUTABLE = $(SRC_EXE)/main.exe
 CC = g++
 
 # Opções do compilador
-CFLAGS = -Wall -Wextra -std=c++17 -O3
+CFLAGS = -Wall -Wextra -std=c++17 -O3 -pthread
 
 # Comando para limpar os arquivos compilados
 RM = rm -rf
