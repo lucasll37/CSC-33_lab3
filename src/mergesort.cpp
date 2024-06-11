@@ -1,15 +1,16 @@
 #include <pthread.h>
-#include <semaphore.h>
 #include <vector>
 #include <iostream>
+#include <algorithm> 
 
-//sem_t semaphore;
+#define MAX_DEPTH 4
 
 typedef struct {
     std::vector<int>& v;
     std::vector<int>& aux;
     int start;
     int end;
+    int depth;
 } arguments;
 
 void _merge(arguments* args) {
@@ -40,39 +41,49 @@ void _merge(arguments* args) {
 }
 
 void* _mergesort(void* arg) {
-    arguments* args = (arguments*)arg;
-    if (args->start >= args->end) {
+    arguments args = *(arguments*)arg;
+    if (args.start >= args.end) {
         return NULL;
     }
 
-    int middle = (args->start + args->end) / 2;
-    arguments left_args = {args->v, args->aux, args->start, middle};
-    arguments right_args = {args->v, args->aux, middle + 1, args->end};
+    int middle = (args.start + args.end) / 2;
+    arguments left_args = {args.v, args.aux, args.start, middle, args.depth + 1};
+    arguments right_args = {args.v, args.aux, middle + 1, args.end, args.depth + 1};
 
-    pthread_t left_thread, right_thread;
+    if (args.depth < MAX_DEPTH) {
+        pthread_t left_thread, right_thread;
 
-    pthread_create(&left_thread, NULL, _mergesort, &left_args);
-    pthread_create(&right_thread, NULL, _mergesort, &right_args);
+        if(pthread_create(&left_thread, NULL, _mergesort, &left_args)) {
+            std::cerr << "Error: unable to create left thread" << std::endl;
+            exit(-1);
+        }
 
-    pthread_join(left_thread, NULL);
-    pthread_join(right_thread, NULL);
+        if(pthread_create(&right_thread, NULL, _mergesort, &right_args)) {
+            std::cerr << "Error: unable to create right thread" << std::endl;
+            exit(-1);
+        }
 
-    _merge(args);
+        if(pthread_join(left_thread, NULL)) {
+            std::cerr << "Error: unable to join left thread" << std::endl;
+            exit(-1);
+        }
 
-//    sem_post(&semaphore);
+        if(pthread_join(right_thread, NULL)) {
+            std::cerr << "Error: unable to join right thread" << std::endl;
+            exit(-1);
+        }
+    } else {
+        std::sort(args.v.begin() + args.start, args.v.begin() + args.end + 1);
+    }
+
+    _merge(&args);
 
     return NULL;
 }
 
 void mergesort(std::vector<int>& v) {
-    std::vector<int> aux(v.size());
-    arguments main_args = {v, aux, 0, (int)v.size() - 1};
-
-//    sem_init(&semaphore, 0, 0);
+    std::vector<int> aux(v);
+    arguments main_args = {v, aux, 0, (int)v.size() - 1, 0};
 
     _mergesort(&main_args);
-
-//    sem_wait(&semaphore);
-
-//    sem_destroy(&semaphore);
 }

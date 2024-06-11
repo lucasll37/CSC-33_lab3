@@ -8,7 +8,7 @@ SRC_DIR = ./src
 SRC_EXE = ./build
 
 # Lista de arquivos de origem
-SOURCE = $(SRC_DIR)/main.cpp $(SRC_DIR)/mergesort.cpp
+SOURCE = $(SRC_DIR)/main.cpp $(SRC_DIR)/mergesort.cpp $(SRC_DIR)/mergesort_sequential.cpp
 
 # Nome do executável
 EXECUTABLE = $(SRC_EXE)/main.exe

@@ -63,7 +63,7 @@ O `Makefile` inclui diversos comandos para facilitar a manipulação do projeto.
 
     Para limpar todos os arquivos gerados durante a compilação, utilize:
     ```sh
-    make clean
+    make clear
     ```
 
 4. **Exibir Ajuda**
